@@ -1,0 +1,7 @@
+nose
+coverage
+selenium
+django==2.0.5
+aloe
+aloe_django
+beautifulsoup4

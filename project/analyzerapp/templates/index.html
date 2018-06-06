@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#reset").click(function(e) {
+            // Get the <ul> element with id="resultado"
+            var list = document.getElementById("resultado");
+
+            // As long as <ul> has a child node, remove it
+            while (list.hasChildNodes()) {
+                list.removeChild(list.firstChild);
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+<h1>WELCOME TO THE TEXT ANALYZER !!</h1>
+<form action="/index/" method="post">
+    {% csrf_token %}
+    <p>Click "analyze" button without any date entered and scrap all daily news from The Guardian</p>
+    <p>If the news are already in the database, then the app just get and show them to the user</p>
+    <p>If you set a date into the DateField, the app will try to get all the data stored in the database related to the words and their
+    number of appearances that they had that day.</p>
+    <p>If there is no data related to that day, then an error message will be shown</p>
+    <p>If you enter an invalid entry, then an error message will be shown</p>
+    <p>If you click "reset" after getting a date's info, then the data will be cleared from the web's interface</p>
+    {{ form }} <br><br>
+    <input type="button" value="Reset" id="reset" name="reset"/>
+    <input type="submit" value="Analyze" id="analyze" name="analyze"/>
+</form> <br><br>
+<div class="resultado" id="resultado">
+    {% if form.my_text.value != '' %}
+    {%for value in words %}
+    <li>{{value}}</li>
+    {% endfor %}
+{% endif %}
+</div>
+
+</body>
+</html>
